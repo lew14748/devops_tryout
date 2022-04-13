@@ -5,15 +5,18 @@ import (
 "net/http"
 )
  
+func rootHandler(w http.ResponseWriter, r *http.Request){
+	fmt.Fprintf(w, "nothing interesting here")
+}
+func helloHandler(w http.ResponseWriter, r *http.Request){
+	fmt.Fprintf(w, "Hello, stranger")
+}
+func helloThereHandler(w http.ResponseWriter, r *http.Request){
+	fmt.Fprintf(w, "General Kenobi?")
+}
 func main() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "nothing interesting here")
-	})
-	http.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Hello, stranger")
-	})
-	http.HandleFunc("/hello_there", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "General Kenobi?")
-	})
+	http.HandleFunc("/", rootHandler)
+	http.HandleFunc("/hello", helloHandler)
+	http.HandleFunc("/hello_there", helloThereHandler)
 	http.ListenAndServe(":2345", nil)
 }
